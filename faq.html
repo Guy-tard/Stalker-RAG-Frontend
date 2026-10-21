@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical FAQ - S.T.A.L.K.E.R. OP-2.2 RAG</title>
+    <style>
+        body { 
+            font-family: monospace; 
+            background-color: #1a1a1a; 
+            color: #00ff00; 
+            margin: 0; 
+            display: flex; 
+            justify-content: center;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .faq-container {
+            width: 100%;
+            max-width: 900px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            padding: 40px;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .header {
+            border-bottom: 1px dashed #444;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 { margin-top: 0; color: #00ff00; }
+        h2 { color: #00ffff; margin-top: 40px; border-bottom: 1px solid #222; padding-bottom: 5px; }
+        h3 { color: #ffaa00; margin-bottom: 10px; }
+        
+        p { color: #ccc; font-size: 0.95em; }
+        ul { color: #ccc; font-size: 0.95em; }
+        li { margin-bottom: 10px; }
+        
+        strong { color: #fff; }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            margin-bottom: 30px;
+        }
+
+        .tech-tag {
+            background: #111;
+            border: 1px solid #444;
+            color: #00aa00;
+            padding: 5px 12px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            background: #111;
+            color: #ffaa00;
+            border: 1px dashed #ffaa00;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #ffaa00;
+            color: #000;
+        }
+
+        /* Fancy block */
+        .recruiter-note {
+            background: #002200;
+            border-left: 4px solid #00ff00;
+            padding: 15px;
+            margin: 20px 0;
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="faq-container">
+    <a href="index.html" class="back-btn">< Return to PDA Terminal</a>
+
+    <div class="header">
+        <h1>[SYSTEM DOCS] Project FAQ</h1>
+        <p>Technical overview of the Retrieval-Augmented Generation (RAG) system built for S.T.A.L.K.E.R. OP-2.2.</p>
+    </div>
+
+    <h2>1. Project Overview & Motivation</h2>
+    
+    <h3>Who am I?</h3>
+    <p>I am César Blanc, a Data Engineer/Scientist passionate about Artificial Intelligence, processing complex datasets and creating models based on real-world use cases. I am currently looking for a job as a Data Scientist. Check out my <a href="https://www.linkedin.com/in/c%C3%A9sar-blanc/" target="_blank" class="social-btn">LinkedIn</a> page with my resume for more information and my <a href="mailto:cesarblanc@orange.fr" class="social-btn">Email</a> if you want to contact me</p>
+
+    <h3>Why choose a video game mod (OP-2.2) for a data project?</h3>
+    <p>S.T.A.L.K.E.R. OP-2.2 is notoriously known as one of the most complex and data-dense modifications in the S.T.A.L.K.E.R. community. It's an esoteric and obscure mod featuring thousands of interlocked quests, items, coordinates, and hidden mechanics spread across unstructured community wikis and raw spreadsheets. Since I love both the base game and the mod, and since it's impossible to play without spending hours on the wiki, I came up with the idea of creating a personal assistant to help me and other players to beat the game. All data used in this projet comes from <a href="https://op-2.fandom.com/wiki/Cumulative_Pack_2_Wiki" class="social-btn">this community wiki.</a></p>
+    
+    <div class="recruiter-note">
+        <strong>Data Engineering Perspective:</strong> This game acts as a perfect proxy to show what I can do. Building an assistant for it required solving real-world business problems: extracting noisy, unstructured data, chunking it, creating semantic vector embeddings, crossing it with structured relational databases and a graph.
+    </div>
+
+    <h3>Affiliation</h3>
+    <p>I am in no way affiliated with the holder of the S.T.A.L.K.E.R. license <a href="https://www.gsc-game.com/" target="_blank" class="social-btn">GSC Game World</a>, the creators of the mod OP-2.2 or the OP-2 fandom wiki <a href="https://op-2.fandom.com/wiki/Cumulative_Pack_2_Wiki" target="_blank" class="social-btn">OP-2 fandom wiki</a>. This is a standalone fan project which I use for my portfolio and as a personal assistant.</p>
+
+    <h2>2. Technical Stack</h2>
+    <div class="tech-stack">
+        <span class="tech-tag">Python 3</span>
+        <span class="tech-tag">Docker</span>
+        <span class="tech-tag">FastAPI</span>
+        <span class="tech-tag">SQLAlchemy</span>
+        <span class="tech-tag">LangChain</span>
+        <span class="tech-tag">LangGraph</span>
+        <span class="tech-tag">OpenAI API</span>
+        <span class="tech-tag">Qdrant (Vector DB)</span>
+        <span class="tech-tag">PostgreSQL (Relational DB)</span>
+        <span class="tech-tag">NetworkX</span>
+        <span class="tech-tag">google cloud plateform</span>
+        <span class="tech-tag">Vanilla JS / HTML / CSS</span>
+    </div>
+
+    <h2>3. Key Engineering Challenges Solved</h2>
+
+    <h3>Hybrid Search (Vector + Relational + Graph)</h3>
+    <p>The system is not just a standard semantic search engine. The LLM acts as an autonomous agent capable of deciding which tool to use: it queries the <strong>Qdrant Vector Database</strong> for unstructured narrative data (quest guides, tactics...), queries the <strong>PostgreSQL Database</strong> for exact numerical statistics (weapon damage, armor carry-weight...) and search in the <strong>NetworkX Graph</strong> for quest routing and pathfinding. This hybrid approach eliminates hallucinations on critical data points.</p>
+
+    <h3>Agentic Workflow & State Orchestration (LangGraph)</h3>
+    <p>To overcome the limitations of traditional linear RAG pipelines (such as truncation on massive wiki tables or inaccurate answers because they were unverified and rushed), the agent has been migrated from a simple single-pass execution to a <strong>cyclical StateGraph using LangGraph</strong>:</p>
+    <ul>
+        <li><strong>Autonomous Loops & Multi-Pass Retrieval:</strong> The agent is no longer constrained to a single tool call. If retrieved data appears incomplete or split across multiple chunks, the graph allows the agent to loop back and perform additional targeted tool queries.</li>
+        <li><strong>Self-Reflection & Quality Assurance:</strong> A dedicated QA auditor node inspects the generated draft against the raw tool data before final rendering, automatically rejecting truncated responses and forcing the agent to fetch missing fragments.</li>
+        <li><strong>State Persistence:</strong> Conversation states and revision counts are safely tracked across nodes, combining the deterministic precision of PostgreSQL querries and NetworkX quest/map paths with autonomous LLM reasoning.</li>
+    </ul>
+
+    <h3>LLM Memory Management & Cost Optimization</h3>
+    <p>Initially, preserving conversation history caused memory leaks and `400 Bad Request` crashes due to the LLM returning massive internal metadata blocks. I implemented a strict memory middleware that intercepts the LLM's raw output, extracts only the sanitized user-facing text, and dynamically truncates the context window to a rolling 10-message limit. This guarantees server stability and drastically reduces API token costs.</p>
+
+    <h3>Automated Data Pipeline & Health Monitoring</h3>
+    <p>A RAG system based on a fan-driven wiki must be up to date. To prevent outdated information and ensure synchronization with the ever-evolving community data, I engineered a fully automated data pipeline:</p>
+    <ul>
+        <li><strong>Continuous Integration for Data:</strong> Once a day, a dedicated script automatically check and scrapes the latest Wiki pages, chunks the new information, generates fresh embeddings via OpenAI, and upserts them into Qdrant, PostgreSQL and update the quest graph.</li>
+        <li><strong>Automated Health Checks:</strong> Before updating the live database, a validation protocol verifies the integrity of the embeddings and the schema structure, ensuring that a bad scrape doesn't corrupt the assistant's knowledge base. If the data are corrupted, the script automatically rebuilt all the databases.</li>
+    </ul>
+
+    <h3>Hallucination Prevention & Traceability</h3>
+    <p>For a RAG system to be trustworthy, traceability is mandatory. I utilized <strong>Few-Shot Prompt Engineering</strong> to strictly enforce source citations. The agent is hardcoded to dynamically generate Markdown links pointing exactly to the originating Wiki page URL or the specific Google Sheet / Database table used for its answer. This way, the user can verify the information and understand how the RAG generates its answers.</p>
+
+    <h3>Security & API Stability</h3>
+    <p>The FastAPI backend is built for production readiness, featuring:</p>
+    <ul>
+        <li><strong>Concurrency Control:</strong> `asyncio.Semaphore` prevents API bottlenecks by limiting simultaneous LLM invocations.</li>
+        <li><strong>Rate Limiting:</strong> Custom IP-based tracking enforces both requests-per-minute and daily hard caps to prevent API abuse.</li>
+        <li><strong>Payload Validation:</strong> Enforced maximum body size limits and payload hashing for immediate cached responses on duplicate queries.</li>
+        <li><strong>CORS Policies:</strong> Strict middleware configuration to safely allow cross-origin requests from the standalone frontend.</li>
+    </ul>
+
+    <h3>Lightweight UX / UI</h3>
+    <p>Instead of relying on heavy modern frameworks (React/Vue), the frontend was deliberately built using vanilla HTML/CSS/JavaScript. It relies on a single external dependency (`marked.js`) to parse Markdown in real-time. This decision was made because I wanted to create a Minimum Viable Product and prioritizing backend complexity and data delivery over frontend overhead. Also, I like the raw look, which reminds me of the interface of S.T.A.L.K.E.R. PDAs.</p>
+
+</div>
+
+</body>
+</html>
