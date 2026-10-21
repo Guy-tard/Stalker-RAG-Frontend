@@ -222,7 +222,7 @@
     const sessionId = Math.random().toString(36).substring(2, 15);
     const API_BASE_URL = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
     ? "http://localhost:8000"
-    : "ttps://stalker-op2-rag-666001292364.europe-west1.run.app";
+    : "https://stalker-op2-rag-666001292364.europe-west1.run.app";
     
     window.addEventListener("DOMContentLoaded", () => {
     fetch(`${API_BASE_URL}/health`).catch(() => {
